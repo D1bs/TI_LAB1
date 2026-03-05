@@ -1,0 +1,339 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="CryptoLab.MainWindow"
+        Title="Вариант 10"
+        Width="1000" Height="700"
+        MinWidth="820" MinHeight="580"
+        WindowStartupLocation="CenterScreen"
+        Background="#F0F2F8">
+
+  <Window.Styles>
+
+    <!-- Базовый TextBox -->
+    <Style Selector="TextBox">
+      <Setter Property="Background" Value="#FAFBFF"/>
+      <Setter Property="BorderBrush" Value="#D4D8EE"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Padding" Value="10,8"/>
+      <Setter Property="FontFamily" Value="Menlo,Consolas,monospace"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Foreground" Value="#1E1E32"/>
+    </Style>
+    <Style Selector="TextBox:focus">
+      <Setter Property="BorderBrush" Value="#4361EE"/>
+    </Style>
+
+    <!-- Кнопка акцент -->
+    <Style Selector="Button.accent">
+      <Setter Property="Background" Value="#4361EE"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Padding" Value="20,10"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style Selector="Button.accent:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#3A55D2"/>
+    </Style>
+
+    <!-- Кнопка вторичная -->
+    <Style Selector="Button.secondary">
+      <Setter Property="Background" Value="#EEF0FF"/>
+      <Setter Property="Foreground" Value="#4361EE"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="Padding" Value="20,10"/>
+      <Setter Property="CornerRadius" Value="8"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="BorderBrush" Value="#C5CCFF"/>
+      <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style Selector="Button.secondary:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#DDE0FF"/>
+    </Style>
+
+    <!-- Кнопка файловая -->
+    <Style Selector="Button.file">
+      <Setter Property="Background" Value="#ECEEF5"/>
+      <Setter Property="Foreground" Value="#444466"/>
+      <Setter Property="FontSize" Value="12.5"/>
+      <Setter Property="Padding" Value="14,8"/>
+      <Setter Property="CornerRadius" Value="7"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="BorderBrush" Value="#D4D8EE"/>
+      <Setter Property="BorderThickness" Value="1"/>
+    </Style>
+    <Style Selector="Button.file:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#DDE0EE"/>
+    </Style>
+
+    <!-- Кнопка ghost -->
+    <Style Selector="Button.ghost">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#8890B0"/>
+      <Setter Property="FontSize" Value="12.5"/>
+      <Setter Property="Padding" Value="10,8"/>
+      <Setter Property="CornerRadius" Value="7"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style Selector="Button.ghost:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="#E8EAF5"/>
+    </Style>
+
+    <!-- Карточка -->
+    <Style Selector="Border.card">
+      <Setter Property="Background" Value="White"/>
+      <Setter Property="CornerRadius" Value="12"/>
+      <Setter Property="BoxShadow" Value="0 2 12 0 #14000040"/>
+      <Setter Property="Padding" Value="16"/>
+      <Setter Property="Margin" Value="0,0,0,12"/>
+    </Style>
+
+    <!-- Заголовок карточки -->
+    <Style Selector="TextBlock.card-title">
+      <Setter Property="FontSize" Value="13"/>
+      <Setter Property="FontWeight" Value="SemiBold"/>
+      <Setter Property="Foreground" Value="#1E1E32"/>
+      <Setter Property="Margin" Value="0,0,0,10"/>
+    </Style>
+
+    <!-- Метка поля -->
+    <Style Selector="TextBlock.field-label">
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="Foreground" Value="#7880A0"/>
+      <Setter Property="Margin" Value="0,0,0,4"/>
+    </Style>
+
+    <!-- Подсказка -->
+    <Style Selector="TextBlock.hint">
+      <Setter Property="FontSize" Value="11.5"/>
+      <Setter Property="Foreground" Value="#A0A8C0"/>
+      <Setter Property="TextWrapping" Value="Wrap"/>
+      <Setter Property="Margin" Value="0,6,0,0"/>
+    </Style>
+
+    <!-- Статусная строка -->
+    <Style Selector="TextBlock.status-ok">
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="Foreground" Value="#27AE60"/>
+    </Style>
+    <Style Selector="TextBlock.status-err">
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="Foreground" Value="#E74C3C"/>
+    </Style>
+
+    <!-- TabItem -->
+    <Style Selector="TabItem">
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="Padding" Value="18,10"/>
+    </Style>
+
+  </Window.Styles>
+
+  <DockPanel>
+
+
+
+    <!-- ══ TABS ═══════════════════════════════════════════════════ -->
+    <TabControl Background="#F0F2F8" Margin="0">
+
+      <!-- ══════════════════════════════════════════════════════════
+           ВКЛАДКА 1: СТОЛБЦОВЫЙ МЕТОД
+      ══════════════════════════════════════════════════════════════ -->
+      <TabItem Header="📊  Столбцовый метод">
+        <Grid ColumnDefinitions="*,7,*" Margin="14,10,14,10">
+
+          <!-- ─── Левая колонка: ввод + ключи ─── -->
+          <ScrollViewer Grid.Column="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="0">
+
+              <!-- Исходный текст -->
+              <Border Classes="card">
+                <StackPanel>
+                  <TextBlock Classes="card-title" Text="Исходный текст"/>
+                  <TextBox x:Name="ColInputBox"
+                           Height="160"
+                           AcceptsReturn="True"
+                           TextWrapping="Wrap"
+                           Watermark="Введите или вставьте текст на русском языке…"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                  <!-- Файловые кнопки -->
+                  <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,10,0,0">
+                    <Button Classes="file" Content="📂  Открыть файл"
+                            Click="ColLoadFile_Click"/>
+                    <Button Classes="file" Content="💾  Сохранить вход"
+                            Click="ColSaveInput_Click"/>
+                  </StackPanel>
+                </StackPanel>
+              </Border>
+
+              <!-- Ключевые слова -->
+              <Border Classes="card">
+                <StackPanel>
+                  <TextBlock Classes="card-title" Text="Ключевые слова"/>
+
+                  <TextBlock Classes="field-label" Text="Ключевое слово 1"/>
+                  <TextBox x:Name="ColKey1Box" Watermark="например: криптография"
+                           FontFamily="Menlo,Consolas,monospace"/>
+
+                  <TextBlock Classes="field-label" Text="Ключевое слово 2" Margin="0,10,0,4"/>
+                  <TextBox x:Name="ColKey2Box" Watermark="например: шифрование"
+                           FontFamily="Menlo,Consolas,monospace"/>
+
+                  <TextBlock Classes="hint"
+                             Text="ℹ Используются только русские буквы. Остальные символы игнорируются."/>
+                </StackPanel>
+              </Border>
+
+              <!-- Кнопки действий -->
+              <Border Classes="card">
+                <StackPanel>
+                  <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Button Classes="accent"  Content="▶  Зашифровать"
+                            Click="ColEncrypt_Click"/>
+                    <Button Classes="secondary" Content="◀  Расшифровать"
+                            Click="ColDecrypt_Click"/>
+                    <Button Classes="ghost" Content="Очистить"
+                            Click="ColClear_Click"/>
+                  </StackPanel>
+                  <TextBlock x:Name="ColStatusLabel" Margin="0,10,0,0"
+                             TextWrapping="Wrap" FontSize="12"/>
+                </StackPanel>
+              </Border>
+
+            </StackPanel>
+          </ScrollViewer>
+
+          <!-- ─── Правая колонка: вывод + теория ─── -->
+          <ScrollViewer Grid.Column="2" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="0">
+
+              <!-- Результат -->
+              <Border Classes="card">
+                <StackPanel>
+                  <TextBlock Classes="card-title" Text="Результат"/>
+                  <TextBox x:Name="ColOutputBox"
+                           Height="160"
+                           IsReadOnly="True"
+                           AcceptsReturn="True"
+                           TextWrapping="Wrap"
+                           Background="#F8F9FF"
+                           Watermark="Здесь появится шифрованный/расшифрованный текст…"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                  <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,10,0,0">
+                    <Button Classes="file" Content="💾  Сохранить результат"
+                            Click="ColSaveOutput_Click"/>
+                    <Button Classes="file" Content="📋  Копировать"
+                            Click="ColCopy_Click"/>
+                    <Button Classes="ghost" Content="⇄ Во вход"
+                            Click="ColSwap_Click"/>
+                  </StackPanel>
+                </StackPanel>
+              </Border>
+
+            </StackPanel>
+          </ScrollViewer>
+
+        </Grid>
+      </TabItem>
+
+      <!-- ══════════════════════════════════════════════════════════
+           ВКЛАДКА 2: ШИФР ВИЖЕНЕРА
+      ══════════════════════════════════════════════════════════════ -->
+      <TabItem Header="🔑  Шифр Виженера">
+        <Grid ColumnDefinitions="*,7,*" Margin="14,10,14,10">
+
+          <!-- ─── Левая колонка ─── -->
+          <ScrollViewer Grid.Column="0" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="0">
+
+              <!-- Исходный текст -->
+              <Border Classes="card">
+                <StackPanel>
+                  <TextBlock Classes="card-title" Text="Исходный текст"/>
+                  <TextBox x:Name="VigInputBox"
+                           Height="160"
+                           AcceptsReturn="True"
+                           TextWrapping="Wrap"
+                           Watermark="Введите или вставьте текст на русском языке…"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                  <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,10,0,0">
+                    <Button Classes="file" Content="📂  Открыть файл"
+                            Click="VigLoadFile_Click"/>
+                    <Button Classes="file" Content="💾  Сохранить вход"
+                            Click="VigSaveInput_Click"/>
+                  </StackPanel>
+                </StackPanel>
+              </Border>
+
+              <!-- Ключ -->
+              <Border Classes="card">
+                <StackPanel>
+                  <TextBlock Classes="card-title" Text="Ключевое слово"/>
+                  <TextBlock Classes="field-label" Text="Начальный ключ"/>
+                  <TextBox x:Name="VigKeyBox" Watermark="например: мода"
+                           FontFamily="Menlo,Consolas,monospace"/>
+                  <TextBlock Classes="hint"
+                             Text="ℹ После исчерпания ключевого слова ключ автоматически пополняется буквами открытого текста (самогенерирующийся ключ)."/>
+                </StackPanel>
+              </Border>
+
+              <!-- Кнопки -->
+              <Border Classes="card">
+                <StackPanel>
+                  <StackPanel Orientation="Horizontal" Spacing="10">
+                    <Button Classes="accent"  Content="▶  Зашифровать"
+                            Click="VigEncrypt_Click"/>
+                    <Button Classes="secondary" Content="◀  Расшифровать"
+                            Click="VigDecrypt_Click"/>
+                    <Button Classes="ghost" Content="Очистить"
+                            Click="VigClear_Click"/>
+                  </StackPanel>
+                  <TextBlock x:Name="VigStatusLabel" Margin="0,10,0,0"
+                             TextWrapping="Wrap" FontSize="12"/>
+                </StackPanel>
+              </Border>
+
+            </StackPanel>
+          </ScrollViewer>
+
+          <!-- ─── Правая колонка ─── -->
+          <ScrollViewer Grid.Column="2" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="0">
+
+              <!-- Результат -->
+              <Border Classes="card">
+                <StackPanel>
+                  <TextBlock Classes="card-title" Text="Результат"/>
+                  <TextBox x:Name="VigOutputBox"
+                           Height="160"
+                           IsReadOnly="True"
+                           AcceptsReturn="True"
+                           TextWrapping="Wrap"
+                           Background="#F8F9FF"
+                           Watermark="Здесь появится шифрованный/расшифрованный текст…"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                  <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,10,0,0">
+                    <Button Classes="file" Content="💾  Сохранить результат"
+                            Click="VigSaveOutput_Click"/>
+                    <Button Classes="file" Content="📋  Копировать"
+                            Click="VigCopy_Click"/>
+                    <Button Classes="ghost" Content="⇄ Во вход"
+                            Click="VigSwap_Click"/>
+                  </StackPanel>
+                </StackPanel>
+              </Border>
+
+            </StackPanel>
+          </ScrollViewer>
+
+        </Grid>
+      </TabItem>
+
+    </TabControl>
+  </DockPanel>
+</Window>
